@@ -1,69 +1,51 @@
 #include <iostream>
-#include <bits/stdc++.h>
+
 using namespace std;
 
+float sqroot(float s)
+{
+    int pSq = 0;
+    int N = 0;
 
-string encryptRailFence(string text, int key);
+    for (int i = static_cast<int>(s); i > 0; i--)
+    {
+        for (int j = 1; j < i; j++)
+        {
+            if (j*j == i)
+            {
+                pSq = i;
+                N = j;
+                break;
+            }
+        }
+        if (pSq > 0)
+            break;
+    }
 
-
+    float d = s - pSq;
+    float P = d/(2.0*N);
+    float A = N+P;
+    float sqrt_of_s = A-((P*P)/(2.0*A));
+    return sqrt_of_s;
+}
 int main()
 {
-    cout<<"how many keys : "<<endl;
-    int key;
-    cin>>key;
-    string text;
-    cout<<"Enter text to be encrypted : "<<endl;
-
-    cin.ignore();
-    getline(cin,text);
-
-
- cout<<"The encrypted message is : "<<encryptRailFence(text,key);
-}
-
-string encryptRailFence(string text,int key){
-    char isuck[key][text.length()+1];
-    int row=0;
-    int column=0;
-    for(int i=0; i<key; ++i){
-        for(int k=0; k<text.length()+1; k++){
-
-            isuck[i][k]='-';
-        }
+    float num ;
+    cout<<" enter a number : \n";
+    cin>>num;
+    if (num < 0){
+        cout<<"square root of "<<num<<" is non-existent \n";
+        cin>>num;
     }
-    bool zigzag=false;
-
-    for(int i=0; i<text.length()+1; ++i){
-
-        if (row==0 || row==key-1){
-            zigzag=!zigzag;
-        }
-        column++;
-        isuck[row][column]=text[i];
-
-
-    if(zigzag){
-        row++;
-
+    if (num==1 ){
+        cout<<" square root of 1 is = "<<1<<endl;
     }
-    else{
-        row--;
+    if (num==0){
+        cout<<" square root of 0 is = "<<1<<endl;
     }
-}
- string ciphered_text;
-for(int i=0; i<key; ++i){
-    for(int k=0; k<text.length()+1; ++k){
-            cout<<isuck[i][k];
-        if(isuck[i][k]!='-'){
-                ciphered_text.push_back(isuck[i][k]);
-
-        }
-
+    else {
+    float sqroot_of_num = sqroot(num);
+    std::cout << "Square root of  "<<num<<" = "<<sqroot_of_num;
     }
-    cout<<endl;
-}
-return ciphered_text;
-
-
-return 0;
+    return 0;
 }
